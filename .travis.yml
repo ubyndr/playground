@@ -1,0 +1,24 @@
+services:
+  - docker
+
+language: python
+
+python:
+  - "3.7"
+
+install:
+  - pip install -r requirements.txt
+
+env:
+  owl_file=https://gist.githubusercontent.com/dosumis/be70df2aa2958af51ac4508e862f5d88/raw/db066ab5c451ebe7d88e75016a66bd6887e1b6db/wine.owl
+
+before_script:
+  - export owl_file=file:///wine.owl
+  - docker run -d -p:7474:7474 -p 7687:7687 -v $PWD/src/resources:/import --env-file src/resources/env.list matentzn/vfb-prod
+  - sleep 45s
+
+script:
+  - python src/load_db.py $owl_file
+  - flake8 . --count --exit-zero --max-complexity=10 --exclude .git,__pycache__ --max-line-length=127 --statistics
+  - python -m unittest discover -s src
+

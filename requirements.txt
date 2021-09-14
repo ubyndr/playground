@@ -1,0 +1,5 @@
+neo4j-driver==1.7.6
+flake8==3.9.2
+flask==1.1.2
+flask_restplus==0.13.0
+
