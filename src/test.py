@@ -22,7 +22,7 @@ class TestQueryUtils(unittest.TestCase):
     def test_wine_query_content(self):
         # Test wine_query content, check if query components are added correctly
         test_input = {'region': 'Kalecik', 'colour': 'red', 'varietal': 'Kalecik Karası'}
-        input_list = ['WHERE r.label='Kalecik' or subR.label='Kalecik'', '{label: 'red'}', '{label: 'Kalecik Karası'}']
+        input_list = ["WHERE r.label='Kalecik' or subR.label='Kalecik'", "{label: 'red'}", "{label: 'Kalecik Karası'}"]
         # add region, colour and varietal one by one and check if corresponding query components are added to the query
         self.assertIn(input_list[0], qu.wine_query(test_input['region'], '', ''))
         self.assertIn(input_list[1], qu.wine_query('', test_input['colour'], ''))
